@@ -1,0 +1,42 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '0.14.0'
+    id 'io.freefair.lombok' version '6.0.0-m2'
+}
+
+group 'de.lukaskoerfer.gradle'
+version '0.3'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+javadoc {
+    options.links 'https://docs.oracle.com/javase/8/docs/api/',
+        'https://docs.gradle.org/current/javadoc/'
+    destinationDir = file('docs/javadoc')
+}
+
+gradlePlugin {
+    plugins {
+        plugin {
+            id = 'de.lukaskoerfer.gradle.magicdraw'
+            displayName = 'MagicDraw Plugin'
+            description = 'Supports the development of plugins for MagicDraw'
+            implementationClass = 'de.lukaskoerfer.gradle.magicdraw.MagicDrawPlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/lukoerfer/gradle-magicdraw'
+    vcsUrl = 'https://github.com/lukoerfer/gradle-magicdraw'
+    tags = ['magicDraw', 'plugin']
+}
